@@ -13,6 +13,11 @@ class PicturesController < ApplicationController
   end
 
   def edit
+    if @picture.user.id == current_user.id
+      render :edit
+    else
+      redirect_to pictures_path, notice: "権限がありません"
+    end
   end
 
   def create
@@ -33,8 +38,12 @@ class PicturesController < ApplicationController
   end
 
   def destroy
-    @picture.destroy
-    redirect_to pictures_url, notice: "削除しました"
+    if @picture.user.id == current_user.id
+      @picture.destroy
+      redirect_to pictures_url, notice: "削除しました"
+    else
+      redirect_to pictures_path, notice: "権限がありません"
+    end
   end
 
   private
