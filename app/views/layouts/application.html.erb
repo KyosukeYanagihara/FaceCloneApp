@@ -4,23 +4,28 @@
     <title>DiverFace</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+  
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
-    <% if logged_in? %>
-      <%= link_to current_user.name, user_path(current_user.id) %>
-      <%= link_to "Picture一覧", pictures_path %>
-      <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
-    <% else %>
-      <%= link_to "新規登録", new_user_path %>
-      <%= link_to "ログイン", new_session_path %>
-    <% end %>
-    <%= yield %>
+    <header>
+      <div class="f_box">
+        <% if logged_in? %>
+          <%= link_to image_tag("facebook.png", class: "facebook-icon"), pictures_path, class: "left" %>
+          <%= link_to current_user.name, user_path(current_user.id), class: "center" %>
+          <%= link_to "投稿一覧", pictures_path, class: "center" %>
+          <%= link_to "ログアウト", session_path(current_user.id), method: :delete, class: "center" %>
+        <% else %>
+          <%= image_tag("facebook.png", class: "facebook-icon") %>
+          <%= link_to "新規登録", new_user_path, class: "center" %>
+          <%= link_to "ログイン", new_session_path, class: "center" %>
+      </div>
+      <% end %>
+    </header>
+    <div id="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

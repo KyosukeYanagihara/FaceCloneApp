@@ -1,16 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Image:</strong>
+<div class="color-white margin-top">
+    <h1>詳細画面</h1>
+  <div class="flex">
+    <div>
+      <%= image_tag @picture.user.image.url, class: "icon-image" %>
+      <%= @picture.user.name %>
+    </div>
+    <div>
+      <% if @picture.user.id == current_user.id %>
+      <%= link_to '編集', edit_picture_path(@picture) %>
+      <%= link_to '削除', @picture, method: :delete, data: { confirm: '削除してもいいですか？' } %>
+      <% end %>
+    </div>
+  </div>
+  <p><%= @picture.content %></p>
   <%= image_tag @picture.image.url %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @picture.content %>
-</p>
-
-
-
-<%= link_to '編集', edit_picture_path(@picture) %> |
-<%= link_to '戻る', pictures_path %>
+  <p><%= link_to '戻る', pictures_path %></p>
+</div>
