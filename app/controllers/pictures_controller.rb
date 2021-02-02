@@ -9,7 +9,15 @@ class PicturesController < ApplicationController
   end
 
   def new
-    @picture = Picture.new
+    if params[:back]
+      @picture = Picture.new(picture_params)
+    else
+      @picture = Picture.new
+    end
+  end
+
+  def confirm
+    @picture = Picture.new(picture_params)
   end
 
   def edit
@@ -47,11 +55,11 @@ class PicturesController < ApplicationController
   end
 
   private
-    def set_picture
-      @picture = Picture.find(params[:id])
-    end
+  def set_picture
+    @picture = Picture.find(params[:id])
+  end
 
-    def picture_params
-      params.require(:picture).permit(:image, :image_cache, :content, :user_id)
-    end
+  def picture_params
+    params.require(:picture).permit(:image, :image_cache, :content, :user_id)
+  end
 end
